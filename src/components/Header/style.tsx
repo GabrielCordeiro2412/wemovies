@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 
-//Header
 export const HeaderArea = styled.header`
     display: flex;
     flex-direction: row;
