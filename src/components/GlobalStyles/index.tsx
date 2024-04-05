@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 interface ButtonProps {
-    secondary?: boolean; // Propriedade opcional para estilização secundária
+    $secondary: boolean;
 }
 
 const spinAnimation = keyframes`
@@ -14,8 +14,8 @@ const spinAnimation = keyframes`
 `;
 
 export const Container = styled.div`
-    height: 100vh; /* Define a altura do container como a altura da viewport */
-    width: 100%; /* Define a largura do container como 100% */
+    height: 100vh;
+    width: 100%;
 `;
 
 export const Spinner = styled.div`
@@ -36,13 +36,14 @@ export const Button = styled.button<ButtonProps>`
     border: none;
     padding: 11px 8px;
     transition: background-color 0.3s;
+    width: 173px;
 
     &:hover{
         background-color: ${({ theme }) => theme.colors.blue.dark};
     }
 
-    ${({ secondary }) =>
-        secondary &&
+    ${({ $secondary }) =>
+        $secondary &&
         `
         @media (max-width: 768px) {
             width: 100%;

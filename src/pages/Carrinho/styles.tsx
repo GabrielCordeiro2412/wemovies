@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 
 interface TextProps {
-    first?: boolean;
-    second?: boolean;
-    web?: boolean;
+    $first?: boolean;
+    $second?: boolean;
+    $web?: boolean;
 }
 
 export const CartArea = styled.div`
@@ -17,7 +18,7 @@ export const CartArea = styled.div`
     border-radius: 4px;
     gap: 24px;
 
-    @media (max-width: 1047px) {
+    @media (max-width: 1048px) {
         max-width: calc(100% - 32px); /* 100% - (16px + 16px) */
         padding: 16px;
         gap: 21px;
@@ -61,6 +62,7 @@ export const TotalArea = styled.div`
     display: flex;
     align-items: center;
     gap: 16px;
+    width: 200px;
     
     @media (max-width: 768px) {
         display: flex;
@@ -76,18 +78,18 @@ export const TextCart = styled.span<TextProps>`
     font-size: 14px;
     font-weight: bold;
 
-    ${({ first }) =>
-        first &&
+    ${({ $first }) =>
+        $first &&
         `
         width: 280px;
     `}
-    ${({ second }) =>
-        second &&
+    ${({ $second }) =>
+        $second &&
         `
         width: 348px;
     `}
-    ${({ web }) =>
-        web &&
+    ${({ $web }) =>
+        $web &&
         `
         display: none;
     `}
@@ -98,4 +100,9 @@ export const TotalValue = styled.span`
     color: ${({ theme }) => theme.colors.background};
     font-size: 24px;
     font-weight: bold;
+`
+
+export const LinkFinalizado = styled(Link)`
+    text-decoration: none;
+    width: 100%
 `

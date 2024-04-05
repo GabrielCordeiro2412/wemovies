@@ -3,8 +3,8 @@ import CartProduct from "../../components/CartProduct";
 import Empty from "../../components/Empty";
 import { Button, ButtonText } from "../../components/GlobalStyles";
 import { useCarrinho } from "../../context/CarrinhoContext";
-import { CartArea, Divider, FooterCart, ProductsArea, TextCart, TitleArea, TotalArea, TotalValue } from "./styles";
-
+import { CartArea, Divider, FooterCart, LinkFinalizado, ProductsArea, TextCart, TitleArea, TotalArea, TotalValue } from "./styles";
+import { StyleSheetManager } from 'styled-components';
 
 function Carrinho() {
     const { carrinhoItems, calcularSubtotalCarrinho } = useCarrinho();
@@ -22,9 +22,14 @@ function Carrinho() {
     return (
         <CartArea>
             <TitleArea>
-                <TextCart first>PRODUTO</TextCart>
-                <TextCart second>QTD</TextCart>
-                <TextCart second>SUBTOTAL</TextCart>
+                <StyleSheetManager shouldForwardProp={(prop) => prop !== 'first'}>
+                    <TextCart $first={true}>PRODUTO</TextCart>
+                </StyleSheetManager>
+                <StyleSheetManager shouldForwardProp={(prop) => prop !== 'second'}>
+                    <TextCart $second={true}>QTD</TextCart>
+                    <TextCart $second={true}>SUBTOTAL</TextCart>
+                </StyleSheetManager>
+
             </TitleArea>
             <ProductsArea>
                 {
@@ -37,11 +42,15 @@ function Carrinho() {
             <FooterCart>
                 <TotalArea>
                     <TextCart>TOTAL</TextCart>
-                    <TotalValue>R$ {subtotal ? subtotal.toFixed(2) : '0.00'}</TotalValue>
+                    <TotalValue>R$ {subtotal ? subtotal.toFixed(2).replace('.', ',') : '0,00'}</TotalValue>
                 </TotalArea>
-                <Button secondary>
-                    <ButtonText>FINALIZAR PEDIDO</ButtonText>
-                </Button>
+                <LinkFinalizado to="/finalizado">
+                    <StyleSheetManager shouldForwardProp={(prop) => prop !== 'second'}>
+                        <Button $secondary={true}>
+                            <ButtonText>FINALIZAR PEDIDO</ButtonText>
+                        </Button>
+                    </StyleSheetManager>
+                </LinkFinalizado>
             </FooterCart>
         </CartArea>
     )

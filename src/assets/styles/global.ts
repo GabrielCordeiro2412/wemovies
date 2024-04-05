@@ -11,7 +11,6 @@ export default createGlobalStyle`
     body {
         background-color: ${({theme}) => theme.colors.background};
         font-size: 16px;
-        overflow: hidden;
     }
 
     button {

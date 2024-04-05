@@ -5,6 +5,7 @@ import Remove from '../../assets/remove.svg'
 import Add from '../../assets/add.svg'
 import { TextCart } from "../../pages/Carrinho/styles";
 import { useCarrinho } from "../../context/CarrinhoContext";
+import { StyleSheetManager } from "styled-components";
 
 interface MovieCardProps {
     movie: Product;
@@ -32,25 +33,31 @@ function CartProduct({ movie }: MovieCardProps) {
         <CartMovieArea>
             <MovieImage src={movie.image} />
             <ProductInfoArea>
-                <ProductInfo first>
-                    <MovieTitle>{movie.title}</MovieTitle>
-                    <PriceDeleteArea>
-                        <MoviePrice>R$ {movie.price}</MoviePrice>
-                        <DeleteImage src={Delete} alt="Remover" onClick={handleDeleteClick} />
-                    </PriceDeleteArea>
-                </ProductInfo>
-                <ProductInfo second>
-                    <QuantityArea>
-                        <QtdControlImage src={Remove} alt="Remover" onClick={handleRemoveClick} />
-                        <QuantityValue>{movie.quantity || 0}</QuantityValue>
-                        <QtdControlImage src={Add} alt="Adicionar" onClick={handleAddClick} />
-                    </QuantityArea>
-                    <SubTotalArea>
-                        <TextCart web>SUBTOTAL</TextCart>
-                        <MoviePrice>R$ {subtotal}</MoviePrice>
-                        <DeleteImageWeb src={Delete} alt="Remover" onClick={handleDeleteClick} />
-                    </SubTotalArea>
-                </ProductInfo>
+                <StyleSheetManager shouldForwardProp={(prop) => prop !== 'second'}>
+                    <ProductInfo $first={true}>
+                        <MovieTitle>{movie.title}</MovieTitle>
+                        <PriceDeleteArea>
+                            <MoviePrice>R$ {movie.price.toFixed(2).replace('.', ',')}</MoviePrice>
+                            <DeleteImage src={Delete} alt="Remover" onClick={handleDeleteClick} />
+                        </PriceDeleteArea>
+                    </ProductInfo>
+                </StyleSheetManager>
+                <StyleSheetManager shouldForwardProp={(prop) => prop !== 'second'}>
+                    <ProductInfo $second={true}>
+                        <QuantityArea>
+                            <QtdControlImage src={Remove} alt="Remover" onClick={handleRemoveClick} />
+                            <QuantityValue>{movie.quantity || 0}</QuantityValue>
+                            <QtdControlImage src={Add} alt="Adicionar" onClick={handleAddClick} />
+                        </QuantityArea>
+                        <SubTotalArea>
+                            <StyleSheetManager shouldForwardProp={(prop) => prop !== 'second'}>
+                                <TextCart $web={true}>SUBTOTAL</TextCart>
+                            </StyleSheetManager>
+                            <MoviePrice>R$ {subtotal.toFixed(2).replace('.', ',')}</MoviePrice>
+                            <DeleteImageWeb src={Delete} alt="Remover" onClick={handleDeleteClick} />
+                        </SubTotalArea>
+                    </ProductInfo>
+                </StyleSheetManager>
             </ProductInfoArea>
         </CartMovieArea>
     )

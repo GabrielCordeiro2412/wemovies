@@ -1,10 +1,10 @@
-import { CartImage, HeaderArea, HeaderMenu, Title, ItensHeader, ItemMenu, ItemMenuCart, LinkHome, LinkCart } from "./style";
+import { CartImage, HeaderArea, Title, ItensHeader, ItemMenu, ItemMenuCart, LinkHome, LinkCart } from "./style";
 import Cart from "../../assets/cart.svg"
 import { useCarrinho } from "../../context/CarrinhoContext";
-import { Link } from "react-router-dom";
 
 function Header() {
     const { itemCount } = useCarrinho();
+
     return (
         <HeaderArea>
             <LinkHome to="/">

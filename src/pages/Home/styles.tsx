@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+interface InputProps{
+    $isfocused: boolean;
+}
+
 export const ListProductsArea = styled.div`
     display: flex;
     flex-direction: column;
@@ -20,7 +24,7 @@ export const InputMovie = styled.input`
     }
 `
 
-export const InputMovieArea = styled.div`
+export const InputMovieArea = styled.div<InputProps>`
     width: 100%;
     background-color: ${({ theme }) => theme.colors.white};
     border-radius: 8px;
@@ -30,11 +34,12 @@ export const InputMovieArea = styled.div`
     padding: 16px 16px 18px 16px;
     gap: 16px;
 
-    ${({ theme }) => `
-        ${InputMovie}:focus & {
-            border: 2px solid ${theme.colors.blue.light};
-        }
-    `}
+    ${({ $isfocused, theme }) =>
+        $isfocused &&
+        `
+        border: 3px solid ${theme.colors.blue.light};
+      `}
+
 `
 
 export const SearchImage = styled.img`
@@ -50,4 +55,16 @@ export const MoviesList = styled.div`
     @media (max-width: 1079px) {
         justify-content: center;
     }
+`
+export const NotFoundTitle = styled.h1`
+    color: ${({ theme }) => theme.colors.white};
+    font-size: 20px;
+`
+
+export const NotFoundArea = styled.div`
+    width: 100%;
+    max-width: 1080px;
+    displaY: flex;
+    justify-content: center;
+    align-items: center;
 `

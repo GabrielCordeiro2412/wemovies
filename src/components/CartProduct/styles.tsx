@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 interface InfoProps {
-    first?: boolean;
-    second?: boolean;
+    $first?: boolean;
+    $second?: boolean;
 }
 
 export const CartMovieArea = styled.div`
@@ -46,13 +46,13 @@ export const ProductInfo = styled.div<InfoProps>`
     flex-direction: column;
     
 
-    ${({ first }) =>
-        first &&
+    ${({ $first }) =>
+        $first &&
         `
         width: 176px;
     `}
-    ${({ second }) =>
-        second &&
+    ${({ $second }) =>
+        $second &&
         `
         width: 720px;
         justify-content: flex-start;

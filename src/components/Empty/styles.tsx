@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const NotFoundArea = styled.div`
+export const EmptyArea = styled.div`
     background-color: ${({ theme }) => theme.colors.white};
     max-width: 1048px;
     height: 596px;

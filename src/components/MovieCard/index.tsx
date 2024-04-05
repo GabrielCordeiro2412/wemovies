@@ -6,16 +6,23 @@ import { MovieCardArea, MovieImage, MoviePrice, MovieTitle } from "./styles";
 interface MovieCardProps {
     movie: Product;
 }
-function MovieCard({movie} : MovieCardProps){
+function MovieCard({ movie }: MovieCardProps) {
 
-    const { adicionarAoCarrinho } = useCarrinho();
+    const { adicionarAoCarrinho, carrinhoItems } = useCarrinho();
 
-    return(
+    const isInCart = carrinhoItems.find(item => item.id === movie.id);
+    const quantityInCart = isInCart ? isInCart.quantity : 0;
+
+    return (
         <MovieCardArea>
-            <MovieImage src={movie.image} alt="Filme"/>
+            <MovieImage src={movie.image} alt="Filme" />
             <MovieTitle>{movie.title}</MovieTitle>
-            <MoviePrice>R$ {movie.price}</MoviePrice>
-            <ButtonCart adicionarAoCarrinho={() => adicionarAoCarrinho(movie)} />
+            <MoviePrice>R$ {movie.price.toFixed(2).replace('.', ',')}</MoviePrice>
+            <ButtonCart
+                adicionarAoCarrinho={() => adicionarAoCarrinho(movie)}
+                incart={isInCart !== undefined}
+                quantitycart={quantityInCart}
+            />
         </MovieCardArea>
     )
 }

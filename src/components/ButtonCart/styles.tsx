@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-export const ButtonCartArea = styled.button`
+interface ButtonProps{
+    $incart: boolean;
+}
+
+export const ButtonCartArea = styled.button<ButtonProps>`
     background-color: ${({ theme }) => theme.colors.blue.light};
     padding: 11px 51.03px;
     gap: 12px;
@@ -10,9 +14,19 @@ export const ButtonCartArea = styled.button`
     align-items: center;
     transition: background-color 0.3s;
 
-    &:hover{
-        background-color: ${({ theme }) => theme.colors.blue.dark};
+    &:hover {
+        ${({ $incart, theme }) =>
+            !$incart &&
+            `
+            background-color: ${theme.colors.blue.dark};
+        `}
     }
+
+    ${({ $incart, theme }) =>
+        $incart &&
+        `
+        background-color: ${theme.colors.green};
+    `}
 `
 
 export const CartInfoArea = styled.div`

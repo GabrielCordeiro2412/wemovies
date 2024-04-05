@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { ReactNode, createContext, useContext, useState } from 'react';
 import { Product } from '../types/Product';
 
 interface CarrinhoContextData {
@@ -9,6 +9,7 @@ interface CarrinhoContextData {
     removerTodosDoCarrinho: (produtoId: number) => void;
     calcularSubtotalItem: (produtoId: number) => number;
     calcularSubtotalCarrinho: () => number;
+    limparCarrinho: () => void;
 }
 
 const CarrinhoContext = createContext<CarrinhoContextData>({
@@ -19,11 +20,12 @@ const CarrinhoContext = createContext<CarrinhoContextData>({
     removerTodosDoCarrinho: () => {},
     calcularSubtotalItem: () => 0,
     calcularSubtotalCarrinho: () => 0,
+    limparCarrinho: () => {},
 });
 
 export const useCarrinho = () => useContext(CarrinhoContext);
 
-export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
+export function CarrinhoProvider({ children }: { children: ReactNode }) {
     const [carrinhoItems, setCarrinhoItems] = useState<Product[]>([]);
     const [itemCount, setItemCount] = useState(0);
 
@@ -77,8 +79,13 @@ export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
         return carrinhoItems.reduce((total, item) => total + item.price * item.quantity, 0);
     };
 
+    const limparCarrinho = () => {
+        setCarrinhoItems([]);
+        setItemCount(0);
+    };
+
     return (
-        <CarrinhoContext.Provider value={{ carrinhoItems, itemCount, adicionarAoCarrinho, removerDoCarrinho, removerTodosDoCarrinho, calcularSubtotalItem, calcularSubtotalCarrinho }}>
+        <CarrinhoContext.Provider value={{ carrinhoItems, itemCount, adicionarAoCarrinho, removerDoCarrinho, removerTodosDoCarrinho, calcularSubtotalItem, calcularSubtotalCarrinho, limparCarrinho }}>
             {children}
         </CarrinhoContext.Provider>
     );

@@ -1,19 +1,23 @@
 import { ButtonCartArea, ButtonTitle, CartImage, CartInfoArea, CartNumber } from "./styles";
 import CartBtn from "../../assets/cart-button.svg"
+import { StyleSheetManager } from 'styled-components';
 
 interface ButtonCartProps {
-    adicionarAoCarrinho: () => void; // Sem argumentos
+    adicionarAoCarrinho: () => void;
+    incart: boolean;
+    quantitycart: number;
 }
-
-function ButtonCart({ adicionarAoCarrinho }: ButtonCartProps) {
+function ButtonCart({ adicionarAoCarrinho, incart, quantitycart }: ButtonCartProps) {
     return (
-        <ButtonCartArea onClick={() => adicionarAoCarrinho()}>
-            <CartInfoArea>
-                <CartImage src={CartBtn} alt="Carrinho" />
-                <CartNumber>0</CartNumber>
-            </CartInfoArea>
-            <ButtonTitle>ADICIONAR AO CARRINHO</ButtonTitle>
-        </ButtonCartArea>
+        <StyleSheetManager shouldForwardProp={(prop) => prop !== 'incart'}>
+            <ButtonCartArea $incart={incart} onClick={() => adicionarAoCarrinho()}>
+                <CartInfoArea>
+                    <CartImage src={CartBtn} alt="Carrinho" />
+                    <CartNumber>{quantitycart}</CartNumber>
+                </CartInfoArea>
+                <ButtonTitle>ADICIONAR AO CARRINHO</ButtonTitle>
+            </ButtonCartArea>
+        </StyleSheetManager>
     )
 }
 
